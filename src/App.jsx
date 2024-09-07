@@ -9,14 +9,13 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createTodo(title);    
-    setTitle("")
-    
+    createTodo(title);
+    setTitle("");
   };
 
   return (
     <div>
-      <h1>Add todo</h1>
+      <h2>Add todo</h2>
       <div>
         <form onSubmit={handleSubmit}>
           <input
@@ -28,10 +27,15 @@ function App() {
         </form>
       </div>
 
-      <h1>todo list</h1>
-      <div>
+      <h3>todo list</h3>
+      <div className="todos">
         {data?.map((item) => {
-          return <p>{item.title}</p>;
+          return (
+            <div key={item.id}>
+              <p>{item.title}</p>
+              <button onClick={()=> handleDelete(item.id)}>delete</button>
+            </div>
+          );
         })}
       </div>
     </div>

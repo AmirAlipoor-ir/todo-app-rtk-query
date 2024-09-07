@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { useAddTodosMutation, useGetTodosQuery } from "./feature/todo/apiSlice";
+import {
+  useAddTodosMutation,
+  useDeleteTodosMutation,
+  useGetTodosQuery,
+} from "./feature/todo/apiSlice";
 
 function App() {
   const [title, setTitle] = useState([]);
@@ -12,6 +16,7 @@ function App() {
     createTodo(title);
     setTitle("");
   };
+  const [deleteTodo] = useDeleteTodosMutation();
 
   return (
     <div>
@@ -33,7 +38,7 @@ function App() {
           return (
             <div key={item.id}>
               <p>{item.title}</p>
-              <button onClick={()=> handleDelete(item.id)}>delete</button>
+              <button onClick={() => deleteTodo(item.id)}>delete</button>
             </div>
           );
         })}

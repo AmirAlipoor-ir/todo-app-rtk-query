@@ -15,13 +15,22 @@ export const apiSlice = createApi({
         method: "POST",
         body: {
           title,
-          id: Date.now(),
+          id: (Date.now()).toString(),
           completed: false,
         },
+      }),
+      invalidatesTags: ["todos"],
+    }),
+    deleteTodos: builder.mutation({
+      query: (id) => ({
+        url: `/todos/${id}`,
+        method: "DELETE",
+        body: { id },
       }),
       invalidatesTags: ["todos"],
     }),
   }),
 });
 
-export const { useGetTodosQuery, useAddTodosMutation } = apiSlice;
+export const { useGetTodosQuery, useAddTodosMutation, useDeleteTodosMutation } =
+  apiSlice;

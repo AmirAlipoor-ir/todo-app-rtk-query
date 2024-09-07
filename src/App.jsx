@@ -5,7 +5,7 @@ import {
   useDeleteTodosMutation,
   useGetTodosQuery,
   useUpdateTodosMutation,
-} from "./feature/todo/apiSlice";
+} from "./services/todos";
 
 function App() {
   const [title, setTitle] = useState([]);

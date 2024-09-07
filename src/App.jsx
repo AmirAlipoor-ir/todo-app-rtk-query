@@ -1,8 +1,10 @@
 import { useState } from "react";
+
 import {
   useAddTodosMutation,
   useDeleteTodosMutation,
   useGetTodosQuery,
+  useUpdateTodosMutation,
 } from "./feature/todo/apiSlice";
 
 function App() {
@@ -10,13 +12,18 @@ function App() {
 
   const { data, error, isLoading } = useGetTodosQuery();
   const [createTodo] = useAddTodosMutation();
+  const [deleteTodo] = useDeleteTodosMutation();
+  const [toggleId] = useUpdateTodosMutation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     createTodo(title);
     setTitle("");
   };
-  const [deleteTodo] = useDeleteTodosMutation();
+  const handleToggleId = (id, completed) => {
+    console.log(completed);
+    toggleId({ id, completed: !completed });
+  };
 
   return (
     <div>
@@ -34,11 +41,16 @@ function App() {
 
       <h3>todo list</h3>
       <div className="todos">
-        {data?.map((item) => {
+        {data?.map(({ id, title, completed }) => {
           return (
-            <div key={item.id}>
-              <p>{item.title}</p>
-              <button onClick={() => deleteTodo(item.id)}>delete</button>
+            <div key={id} className={`${completed&& "completed"}`}>
+              <p>{title}</p>
+              <input
+                type="checkbox"
+                onChange={() => handleToggleId(id, completed)}
+                checked={completed}
+              />
+              <button onClick={() => deleteTodo(id)}>delete</button>
             </div>
           );
         })}

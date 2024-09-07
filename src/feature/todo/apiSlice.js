@@ -15,7 +15,7 @@ export const apiSlice = createApi({
         method: "POST",
         body: {
           title,
-          id: (Date.now()).toString(),
+          id: Date.now().toString(),
           completed: false,
         },
       }),
@@ -29,8 +29,19 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["todos"],
     }),
+    updateTodos: builder.mutation({
+      query: ({ id, ...body }) => {
+        console.log(body);
+        return { url: `/todos/${id}`, method: "PATCH", body };
+      },
+      invalidatesTags: ["todos"],
+    }),
   }),
 });
 
-export const { useGetTodosQuery, useAddTodosMutation, useDeleteTodosMutation } =
-  apiSlice;
+export const {
+  useGetTodosQuery,
+  useAddTodosMutation,
+  useDeleteTodosMutation,
+  useUpdateTodosMutation,
+} = apiSlice;

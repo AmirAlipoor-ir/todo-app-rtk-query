@@ -63,6 +63,9 @@ button {
   margin-bottom: 4px;
 }
 
+.completed{
+  background-color: cadetblue;
+}
 
 button:hover {
   border-color: #646cff;
